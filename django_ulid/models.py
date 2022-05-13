@@ -34,7 +34,7 @@ class ULIDField(models.Field):
         return name, path, args, kwargs
 
     def get_internal_type(self):
-        return 'UUIDField'
+        return 'UUIDField' if connection.features.has_native_uuid_field else 'CharField'
 
     def get_db_prep_value(self, value, connection, prepared=False):
         if value is None:
